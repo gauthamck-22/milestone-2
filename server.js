@@ -13,24 +13,29 @@ const adminRoutes = require('./routes/admin');
 const errorHandler = require('./middleware/errorHandler');
 
 dotenv.config();
-connectDb();
 
-const app = express();
-app.use(cors());
-app.use(morgan('dev'));
-app.use(express.json());
+const startServer = async () => {
+  await connectDb();
 
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/emr', emrRoutes);
-app.use('/api/appointments', appointmentRoutes);
-app.use('/api/prescriptions', prescriptionRoutes);
-app.use('/api/clinicians', clinicianRoutes);
-app.use('/api/admin', adminRoutes);
+  const app = express();
+  app.use(cors());
+  app.use(morgan('dev'));
+  app.use(express.json());
 
-app.use(errorHandler);
+  app.use('/api/auth', authRoutes);
+  app.use('/api/users', userRoutes);
+  app.use('/api/emr', emrRoutes);
+  app.use('/api/appointments', appointmentRoutes);
+  app.use('/api/prescriptions', prescriptionRoutes);
+  app.use('/api/clinicians', clinicianRoutes);
+  app.use('/api/admin', adminRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  app.use(errorHandler);
+
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+};
+
+startServer();

@@ -53,6 +53,8 @@ npm run seed
 
 This project includes a sample Postman collection for endpoint testing in `postman_collection.json`.
 
+A screenshot sample is available in `screenshot.html` for visual confirmation of API usage.
+
 ## Notes
 
 - Protect `.env` in a real deployment.
